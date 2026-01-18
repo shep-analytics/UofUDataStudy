@@ -28,12 +28,12 @@ reconstruction of the phrase **"SEMIERECT PORTABLE"** (synthetic text).
 
 ## What to Run (Reproducible Example)
 
-The zip includes a single DICOM at `sample_data/1-1.dcm` with synthetic burned-in
-text, so the defaults work as-is. You can override them if needed:
+The defaults are already set to a known DICOM and crop that contains the burned-in
+text:
 
 ```bash
 .venv/bin/python phi_gradient_inversion_poc.py \
-  --dicom-path "sample_data/1-1.dcm" \
+  --dicom-path "dataset_cancer_imaging_archive/manifest-1740445452889/MIDI-B-Synthetic-Validation/5864436320/08-17-2011-NA-XR CHEST 1 VIEW AP at DC-30150/1.000000-AP for Daniel Hoover-74781/1-1.dcm" \
   --crop 1627 0 956 559 \
   --image-size 512 \
   --steps 2000 \
@@ -41,24 +41,3 @@ text, so the defaults work as-is. You can override them if needed:
   --tv-weight 1e-6 \
   --prefer-mps
 ```
-
-## Why This Is a Solid PoC
-
-- **Directly models the FL threat:** a server receives a client update and runs
-  gradient inversion to reconstruct the client image.
-- **Single-step gradient leakage:** this is the highest-risk, well-studied case
-  and demonstrates that raw updates can expose visual PHI.
-- **Readable text recovered:** the reconstruction produces legible burned-in
-  words, which is the concrete privacy failure this PoC is designed to show.
-
-## Notes and Limitations
-
-- This is a *proof-of-concept*, not a guarantee of success in every FL setup.
-- Real deployments may use mitigations such as secure aggregation, gradient
-  clipping, or differential privacy, which can reduce or prevent leakage.
-- The included DICOM is from TCIA's MIDI-B-Synthetic-Validation collection and
-  contains **synthetic** burned-in text (DOI: https://doi.org/10.7937/cf2paw56).
-
-If you want this extended to multiple images, FedAvg-style updates, or mitigation
-experiments, just ask.
-# UofUDataStudy

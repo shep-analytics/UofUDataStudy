@@ -1,0 +1,19 @@
+# Local environments
+.venv/
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+
+# Large/raw datasets
+/dataset_cancer_imaging_archive/
+
+# Generated outputs
+/outputs/
+
+# Federated exchange artifacts
+*_fl_exchange/
+
+# Optional model artifacts
+*.pt
